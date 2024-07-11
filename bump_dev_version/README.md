@@ -16,13 +16,14 @@ Inputs available
 Basic:
 ```yaml
 steps:
-  - name: Check out repository
-    uses: actions/checkout@v4
-  - name: Set up R
-    uses: r-lib/actions/setup-r@v2
-    with:
-      install-r: false
-  - uses: DanChaltiel/actions/bumb-dev-version@v1
-    with:
-      create-tag: true
+- name: Check out repository
+  uses: actions/checkout@v4
+- name: Set up R
+  uses: r-lib/actions/setup-r@v2
+  with:
+    install-r: false
+- name: Bump dev version
+  uses: DanChaltiel/actions/bumb-dev-version@v1
+  with:
+    create-tag: true
 ```
