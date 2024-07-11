@@ -6,6 +6,6 @@ that I use in my R packages.
 
 ## List of actions
 
-1. [DanChaltiel/actions/bumb-dev-version](bumb-dev-version) - Bump the dev version when triggered. 
+1. [DanChaltiel/actions/bumb-dev-version](https://github.com/DanChaltiel/actions/tree/v1/bump-dev-version) - Bump the dev version when triggered. 
 Can create the associated tag.
 1. WIP

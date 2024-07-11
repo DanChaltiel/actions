@@ -23,7 +23,11 @@ steps:
   with:
     install-r: false
 - name: Bump dev version
-  uses: DanChaltiel/actions/bumb-dev-version@v1
+  uses: DanChaltiel/actions/bump-dev-version@v1
   with:
     create-tag: true
 ```
+
+# Example
+
+[This workflow file](https://github.com/DanChaltiel/EDCimport/blob/2da8a3670ca6d0a0be3e0aa5c171441de5055638/.github/workflows/bump_dev_version.yaml) can be copied and adapted to your needs.
