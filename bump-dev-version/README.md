@@ -30,4 +30,4 @@ steps:
 
 # Example
 
-[This workflow file](https://github.com/DanChaltiel/EDCimport/blob/2da8a3670ca6d0a0be3e0aa5c171441de5055638/.github/workflows/bump_dev_version.yaml) can be copied and adapted to your needs.
+[This workflow file](https://github.com/DanChaltiel/EDCimport/blob/main/.github/workflows/bump_dev_version.yaml) can be copied and adapted to your needs.
