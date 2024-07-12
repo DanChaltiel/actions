@@ -25,7 +25,7 @@ steps:
 - name: Bump dev version
   uses: DanChaltiel/actions/bump-dev-version@v1
   with:
-    create-tag: true
+    create-tag: 'true'
 ```
 
 # Example
