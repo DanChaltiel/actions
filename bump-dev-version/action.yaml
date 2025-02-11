@@ -45,7 +45,8 @@ runs:
       shell: bash
       run: |
         git add DESCRIPTION
-        git commit -m "Update dev version (Github Actions)" -m "Bump to v${{ env.PKG_NEW_VERSION }} \n[skip ci]"
+        git commit -m "Update dev version (Github Actions)" -m "Bump to v${{ env.PKG_NEW_VERSION }} 
+        [skip ci]"
         git tag v${{ env.PKG_NEW_VERSION }}
         git push origin main --tags
 
