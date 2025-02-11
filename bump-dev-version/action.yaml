@@ -25,11 +25,13 @@ runs:
           any::desc
 
     - name: Configure git
+      shell: bash
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
 
     - name: Increment dev version
+      shell: Rscript {0}
       id: vars
       run: |
         invisible(desc::desc_bump_version("dev"))
@@ -37,10 +39,10 @@ runs:
         cat(sprintf("PKG_NEW_VERSION=%s\n", new_version),
             file = Sys.getenv("GITHUB_ENV"), append = TRUE)
         message("Setting PKG_NEW_VERSION to ", new_version)
-      shell: Rscript {0}
 
     - name: Commit the version change and add tag
       if: inputs.create-tag != 'false'
+      shell: bash
       run: |
         git add DESCRIPTION
         git commit -m "Update dev version (Github Actions)" -m "[skip ci]"
@@ -50,6 +52,7 @@ runs:
 
     - name: Commit the version change
       if: inputs.create-tag == 'false'
+      shell: bash
       run: |
         git add DESCRIPTION
         git commit -m "Update dev version to v${{ env.PKG_NEW_VERSION }} (Github Actions)" -m "[skip ci]"
