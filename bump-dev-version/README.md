@@ -18,12 +18,9 @@ Basic:
 steps:
 - name: Check out repository
   uses: actions/checkout@v4
-- name: Set up R
-  uses: r-lib/actions/setup-r@v2
-  with:
-    install-r: false
+  
 - name: Bump dev version
-  uses: DanChaltiel/actions/bump-dev-version@v1
+  uses: DanChaltiel/actions/bump-dev-version@v2
   with:
     create-tag: 'true'
 ```
