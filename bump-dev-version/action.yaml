@@ -10,6 +10,10 @@ inputs:
     description: 'Whether a tag should be created to reference the new dev version'
     type: 'boolean'
     default: 'false'
+  update-readme:
+    description: 'Should the "Installation" section in README.md be updated with the new version'
+    type: 'boolean'
+    default: 'false'
 
 runs:
   using: "composite"
@@ -39,12 +43,34 @@ runs:
         cat(sprintf("PKG_NEW_VERSION=%s\n", new_version),
             file = Sys.getenv("GITHUB_ENV"), append = TRUE)
         message("Setting PKG_NEW_VERSION to ", new_version)
+        
+    - name: Update Readme version
+      if: inputs.update-readme != 'false'
+      shell: Rscript {0}
+      run: |
+        REPO = Sys.getenv("GITHUB_REPOSITORY")
+        PKG_NEW_VERSION = Sys.getenv("PKG_NEW_VERSION")
+        message("Setting PKG_NEW_VERSION to ", PKG_NEW_VERSION, "in repo ", REPO)
+
+        x = readLines("README.md")
+        pattern = paste0('"', REPO, '.*"')
+        replacement = paste0('"', REPO, '@v', PKG_NEW_VERSION, '"')
+        new = gsub(pattern, replacement, x)
+
+        file_bytes = readBin("README.md", "raw", file.info("README.md")$size)
+        eol = if(any(file_bytes == as.raw(13))) "\r\n" else  "\n"
+
+        f = file("README.md", open="wb")
+        writeLines(new, f, sep=eol, useBytes=TRUE)
+        close(f)
+
 
     - name: Commit the version change and add tag
       if: inputs.create-tag != 'false'
       shell: bash
       run: |
         git add DESCRIPTION
+        git add README.md
         git commit -m "Update dev version (Github Actions)" -m "Bump to v${{ env.PKG_NEW_VERSION }} 
         [skip ci]"
         git tag v${{ env.PKG_NEW_VERSION }}
@@ -55,5 +81,6 @@ runs:
       shell: bash
       run: |
         git add DESCRIPTION
+        git add README.md
         git commit -m "Update dev version to v${{ env.PKG_NEW_VERSION }} (Github Actions)" -m "[skip ci]"
         git push
